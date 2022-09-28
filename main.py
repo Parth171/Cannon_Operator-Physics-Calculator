@@ -122,6 +122,29 @@ def Scenario_2(SPEED, ANGLE):
     return DISTANCE_X
 
 
+def Scenario_3(SPEED, ANGLE, HEIGHT):
+
+    """
+    CALCULATES SCENARIO 3
+    :param SPEED: int
+    :param ANGLE: int
+    :param HEIGHT: int
+    :return: float
+    """
+    HEIGHT = HEIGHT * -1
+    ANGLE_RADS = math.radians(ANGLE)  # converts angle to radians for easier calculation
+    SPEED_Y = SPEED * math.sin(ANGLE_RADS)
+    SPEED_X = SPEED * math.cos(ANGLE_RADS)
+    VELOCITY_FINAL_Y = math.sqrt(SPEED_Y**2 + 2 * -9.81 * HEIGHT)
+    VELOCITY_FINAL_Y = VELOCITY_FINAL_Y * -1 # going down so it has to be negative
+    TIME = HEIGHT / ((VELOCITY_FINAL_Y + SPEED_Y) / 2)
+    DISTANCE_X = TIME * SPEED_X
+    print(DISTANCE_X)
+    print(VELOCITY_FINAL_Y)
+    print(TIME)
+    return(DISTANCE_X)
+
+
 
 
 
@@ -129,16 +152,17 @@ def Scenario_2(SPEED, ANGLE):
 
 if __name__ == "__main__":
 
-    Option = titleScreen()
-    print(Option)
+    #Option = titleScreen()
+    #print(Option)
 
     ANGLE_G = Angle()
     SPEED_G = Speed()
-    #HEIGHT_G = Height()
+    HEIGHT_G = Height()
 
     #Scenario_2(SPEED_G, ANGLE_G) ''''####SCENARIO TWO WORKS####''''
 
     #Scenario_1(SPEED_G, HEIGHT_G) '''' ####SCENARIO ONE WORKS#### ''''
+    Scenario_3(ANGLE_G, SPEED_G, HEIGHT_G)
 
 
 
