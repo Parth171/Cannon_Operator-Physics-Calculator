@@ -63,7 +63,7 @@ def Height():
     :return: int
     """
     HEIGHT = input("What the distance of the cannon above the waterline? (m): ")
-    HEIGHT = checkInt(HEIGHT) # Checks to see if the input is an integer
+    HEIGHT = checkInt(HEIGHT)  # Checks to see if the input is an integer
     return HEIGHT
 
 
@@ -189,6 +189,7 @@ def Scenario_4(DISTANCE_X, DISTANCE_Y):
 ### --- MAIN PROGRAM CODE --- ###
 
 if __name__ == "__main__":
+
 
 
     ## -- INPUTS -- ##
