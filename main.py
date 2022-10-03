@@ -6,87 +6,116 @@ Author: Parth Sakpal
 date-created: 2022-09-23
 '''
 
+## -- IMPORT LIBRARIES -- ##
 import math
+
+RUN = 1
+
 ## -- SUBROUTINES -- #
 
-def titleScreen():
-    print("""
-    Cannons!!
-    
-    1. Scenario 1
-    2. Scenario 2 
-    3. Scenario 3
-    """)
-
-    SCENARIO = input("select your input: ")
-    SCENARIO = checkInt(SCENARIO)
-
-    if SCENARIO > 0 and SCENARIO < 4:
-        return SCENARIO
-    else:
-        print("enter valid option")
-        return titleScreen()
-
-
-'''
-def checkFloat(NUM):
-
-    if isinstance(NUM, float):
-        return float(NUM)
-    else:
-        print("please enter a valid number")
-        NEW_NUM = input("Please enter the value again: ")
-        return checkFloat(NEW_NUM)
-
-    print(NUM)
-
-'''
 
 
 def checkInt(NUM):
-
-    if NUM.isnumeric():
+    if NUM.isnumeric(): # Checks if the value entered is an integer
         return int(NUM)
     else:
-        print("please enter a valid number")
-        NEW_NUM = input("Please enter the value again: ")
-        return checkInt(NEW_NUM)
+        print("Please enter a valid number.")
+        NEW_NUM = input("Please enter the value again: ") # Asks user to input the value again if it isn't a valid input
+        return checkInt(NEW_NUM) # Checks the validity of the new input
+
+### -- INPUTS -- ##
+
+def titleScreen():
+
+    """
+
+    Presents user with the four scenario options and prompts user to choose one of the options
+    :return: int
+    """
+
+    # Prints the menu presented to the user #
+    print("""
+    Welcome to Navy Cannon Operator!
+    Please choose the scenario that you wish to calculate.  
+
+    Scenario 1. Calculates the horizontal distance the cannonball travels when the cannon ball is shot horizontal to the water. 
+    
+    Scenario 2. Calculates the horizontal distance the cannonball travels when it is shot parabolic to another ship of the same height.
+    
+    Scenario 3. Calculates the horizontal distance the cannonball travels when it is shot parabolic to another smaller ship. 
+    
+    Scenario 4. Calculates the angle the cannon must be shot in order to successfully hit a fighter jet.
+    
+    """)
+
+    SCENARIO = input("Select your desired scenario: ")
+    SCENARIO = checkInt(SCENARIO) # Checks to see if the input is an integer
+
+    if SCENARIO > 0 and SCENARIO < 5: # Checks to see if the input is a valid input from the menu presented
+        return SCENARIO
+    else:
+        print("Enter an option from the menu presented.")
+        return titleScreen() # Asks user for the input again if the input they provided was not valid.
 
 def Height():
     """
-    asks user for distance above the water (height)
+    Asks user for distance above the water (height)
     :return: int
     """
-    HEIGHT = input("what the distance of the cannon above the water? (m): ")
-    HEIGHT = checkInt(HEIGHT)
+    HEIGHT = input("What the distance of the cannon above the waterline? (m): ")
+    HEIGHT = checkInt(HEIGHT) # Checks to see if the input is an integer
     return HEIGHT
 
-def Speed():
 
+def Speed():
     """
-    asks user for speed
+    Asks user for speed the cannonball leaves the cannon at (m/s)
     :return: int
     """
-    SPEED = input("what's the speed (m/s) : ")
-    SPEED = checkInt(SPEED)
+    SPEED = input("What's the initial speed the cannonball? (m/s): ")
+    SPEED = checkInt(SPEED) # Checks to see if the input is an integer
     return SPEED
+
 
 def Angle():
     """
-    asks user for the angle the cannon was lauched at
+    Asks user for the angle the cannon was launched at (in degrees)
     :return: int
     """
-    ANGLE = input("Enter the angle the cannon is fired at: ")
-    ANGLE = checkInt(ANGLE)
-    if ANGLE > 90 or ANGLE == 90:
-        print("Make sure your angle is less than 90 degrees, or you will hit your own ship")
-        print("Enter the value again")
+    ANGLE = input("Enter the angle the cannon is fired at (in degrees): ")
+    ANGLE = checkInt(ANGLE) # Checks to see if the input is an integer
+    if ANGLE > 90 or ANGLE == 90: # Checks to see if the angle entered is 90 or more
+        print("Make sure your angle is less than 90 degrees, or you will hit your own ship") # If the angle entered is 90 or above, it informs the user that they will hit their own ship.
+        print("Enter the value again") # Prompts user to enter the angle again if the angle they originally entered was 90 or above.
         return Angle()
     return ANGLE
 
+
+def Distance_X():
+    """
+    Asks the user how far the fighter jet is from the their ship (Horizontal distance between ship and fighter jet)
+    :return: int
+    """
+
+    DISTANCE_X = input("How far is the fighter jet from your ship in meters?(Horizontal Distance): ")
+    DISTANCE_X = checkInt(DISTANCE_X) # Checks to see if the input is an integer
+    return DISTANCE_X
+
+
+def Distance_Y():
+    """
+    Asks the user how much higher the fighter jet is compared to the ship (Vertical Distance)
+    :return:
+    """
+
+    DISTANCE_Y = input("How much higher is the fighter jet compared to your ship in meters? (Vertical Distance): ")
+    DISTANCE_Y = checkInt(DISTANCE_Y) # Checks to see if the input is an integer
+    return (DISTANCE_Y)
+
+
+## -- PROCESSING -- ##
+
 def Scenario_1(SPEED, HEIGHT):
-
-
     """
     CALCULATES SCENARIO 1
     :param SPEED: int
@@ -94,17 +123,15 @@ def Scenario_1(SPEED, HEIGHT):
     :return: float
     """
 
+    TIME = math.sqrt(2 * HEIGHT / 9.81) # Calculates the time value
 
-    TIME = math.sqrt(2 * HEIGHT / 9.81)
-
-    DISTANCE_X = SPEED * TIME
-    DISTANCE_X = round(DISTANCE_X, 2)
+    DISTANCE_X = SPEED * TIME # Calculates the horizontal distance
+    DISTANCE_X = round(DISTANCE_X, 2) # Rounds the distance to the nearest hundredth
     print(DISTANCE_X)
     return DISTANCE_X
 
 
 def Scenario_2(SPEED, ANGLE):
-
     """
     CALCULATES SCENARIO 2
     :param SPEED: int
@@ -112,18 +139,17 @@ def Scenario_2(SPEED, ANGLE):
     :return: float
     """
 
-    ANGLE_RADS = math.radians(ANGLE) # converts angle to radians for easier calculation
-    SPEED_Y = SPEED * math.sin(ANGLE_RADS)
-    SPEED_X = SPEED * math.cos(ANGLE_RADS)
-    TIME_TOTAL = SPEED_Y / 9.81 * 2
-    DISTANCE_X = TIME_TOTAL * SPEED_X
-    DISTANCE_X = round(DISTANCE_X, 2)
+    ANGLE_RADS = math.radians(ANGLE)  # converts angle to radians for easier calculation
+    SPEED_Y = SPEED * math.sin(ANGLE_RADS) # Calculates the initial vertical speed
+    SPEED_X = SPEED * math.cos(ANGLE_RADS) # Calculates the initial horizontal speed
+    TIME_TOTAL = SPEED_Y / 9.81 * 2 # Calculates the time
+    DISTANCE_X = TIME_TOTAL * SPEED_X # Calculates the horizontal distance
+    DISTANCE_X = round(DISTANCE_X, 2) # Rounds the distance to the nearest hundredth
     print(DISTANCE_X)
     return DISTANCE_X
 
 
 def Scenario_3(SPEED, ANGLE, HEIGHT):
-
     """
     CALCULATES SCENARIO 3
     :param SPEED: int
@@ -131,44 +157,61 @@ def Scenario_3(SPEED, ANGLE, HEIGHT):
     :param HEIGHT: int
     :return: float
     """
-    HEIGHT = HEIGHT * -1
+    HEIGHT = HEIGHT * -1 # Since the cannonball is being shot below its origin, it turns the height negative for easier calculation
     ANGLE_RADS = math.radians(ANGLE)  # converts angle to radians for easier calculation
-    SPEED_Y = SPEED * math.sin(ANGLE_RADS)
-    SPEED_X = SPEED * math.cos(ANGLE_RADS)
-    VELOCITY_FINAL_Y = math.sqrt(SPEED_Y**2 + 2 * -9.81 * HEIGHT)
-    VELOCITY_FINAL_Y = VELOCITY_FINAL_Y * -1 # going down so it has to be negative
-    TIME = HEIGHT / ((VELOCITY_FINAL_Y + SPEED_Y) / 2)
-    DISTANCE_X = TIME * SPEED_X
-    print(DISTANCE_X)
-    print(VELOCITY_FINAL_Y)
-    print(TIME)
-    return(DISTANCE_X)
+    SPEED_Y = SPEED * math.sin(ANGLE_RADS) # Calculates the initial vertical speed
+    SPEED_X = SPEED * math.cos(ANGLE_RADS) # Calculates the initial horizontal speed
+    VELOCITY_Y_FINAL = (math.sqrt(SPEED_Y ** 2 + 2 * (-9.81) * (HEIGHT))) * -1 # Calculates the final vertical speed
+
+    TIME = (VELOCITY_Y_FINAL - SPEED_Y) / -9.81 # Calculates the time
+
+    DISTANCE = TIME * SPEED_X
+    DISTANCE = round(DISTANCE, 2)
+    print("The total distance the cannonball traveled is", DISTANCE)
+    return DISTANCE
 
 
+def Scenario_4(DISTANCE_X, DISTANCE_Y):
 
+    """
+    Calculates the angle the cannon must be fired to hit the fighter jet
+    :param DISTANCE_X: int
+    :param DISTANCE_Y: int
+    :return: float
+    """
+    ANGLE = math.atan(DISTANCE_Y / DISTANCE_X)
+    ANGLE = math.degrees(ANGLE)
+    ANGLE = round(ANGLE, 2)
+    print("Shoot the cannon at a", ANGLE, "degree angle")
+    return ANGLE
 
 
 ### --- MAIN PROGRAM CODE --- ###
 
 if __name__ == "__main__":
 
-    #Option = titleScreen()
-    #print(Option)
 
-    ANGLE_G = Angle()
-    SPEED_G = Speed()
-    HEIGHT_G = Height()
+    ## -- INPUTS -- ##
+    Option = titleScreen()
 
-    #Scenario_2(SPEED_G, ANGLE_G) ''''####SCENARIO TWO WORKS####''''
+    ## -- PROCESSING -- ##
+    if Option == 1:
+        SPEED_G = Speed()
+        HEIGHT_G = Height()
+        Scenario_1(SPEED_G, HEIGHT_G)
+    elif Option == 2:
+        SPEED_G = Speed()
+        ANGLE_G = Angle()
+        Scenario_2(SPEED_G, ANGLE_G)
+    elif Option == 3:
+        SPEED_G = Speed()
+        ANGLE_G = Angle()
+        HEIGHT_G = Height()
+        Scenario_3(SPEED_G, ANGLE_G, HEIGHT_G)
+    else:
+        DISTANCE_X_G = Distance_X()
+        DISTANCE_Y_G = Distance_Y()
+        Scenario_4(DISTANCE_X_G, DISTANCE_Y_G)
 
-    #Scenario_1(SPEED_G, HEIGHT_G) '''' ####SCENARIO ONE WORKS#### ''''
-    Scenario_3(ANGLE_G, SPEED_G, HEIGHT_G)
 
 
-
-
-#INPUTS#
-
-#PROCESSING#
-
-#OUTPUTS#
