@@ -38,7 +38,7 @@ def titleScreen():
     Welcome to Navy Cannon Operator!
     Please choose the scenario that you wish to calculate.  
 
-    Scenario 1. Calculates the horizontal distance the cannonball travels when the cannon ball is shot horizontal to the water. 
+    Scenario 1. Calculates the horizontal distance the cannonball travels when it is shot horizontal to the water. 
     
     Scenario 2. Calculates the horizontal distance the cannonball travels when it is shot parabolic to another ship of the same height.
     
@@ -62,7 +62,7 @@ def Height():
     Asks user for distance above the water (height)
     :return: int
     """
-    HEIGHT = input("What the distance of the cannon above the waterline? (m): ")
+    HEIGHT = input("What is the height of the cannon? (m): ")
     HEIGHT = checkInt(HEIGHT)  # Checks to see if the input is an integer
     return HEIGHT
 
@@ -122,6 +122,8 @@ def Scenario_1(SPEED, HEIGHT):
     :param HEIGHT: int
     :return: float
     """
+
+
 
     TIME = math.sqrt(2 * HEIGHT / 9.81) # Calculates the time value
 
@@ -197,6 +199,14 @@ if __name__ == "__main__":
 
     ## -- PROCESSING -- ##
     if Option == 1:
+        print("""
+
+You chose Scenario 1.
+
+In this scenario, you must provide the speed the ball leaves the cannon at, 
+aswell as the height of the cannon to determine the distance the cannonball travels. 
+
+            """)
         SPEED_G = Speed()
         HEIGHT_G = Height()
         Scenario_1(SPEED_G, HEIGHT_G)
