@@ -40,22 +40,23 @@ def titleScreen():
     Please choose the scenario that you wish to calculate.  
 
     Scenario 1. Calculates the horizontal distance the cannonball travels when it is shot horizontal to the water. 
+    
     ____
-    |   \
-    |    \
-    |     \
+    |   \\
+    |    \\
+    |     \\
 
     Scenario 2. Calculates the horizontal distance the cannonball travels when it is shot parabolic to another ship of the same height.
        ___
-      /   \
-     /     \
-    /       \
+      /   \\
+     /     \\
+    /       \\
 
     Scenario 3. Calculates the horizontal distance the cannonball travels when it is shot parabolic to another smaller ship. 
       ___
-     /   \
-    |     \
-    |      \
+     /   \\
+    |     \\
+    |      \\
 
     Scenario 4. Calculates the angle the cannon must be shot in order to successfully hit a fighter jet.
        ____
